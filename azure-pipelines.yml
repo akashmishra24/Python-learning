@@ -41,9 +41,4 @@ stages:
       inputs:
         Contents: '**'
         TargetFolder: '$(build.artifactstagingdirectory)'
-    - task: KubernetesManifest@0
-      inputs:
-        action: 'deploy'
-        kubernetesServiceConnection: 'aks-connection'
-        namespace: 'default'
-        manifests: '$(build.artifactstagingdirectory)/Caesar-cipher/aks-manifest.yaml'
+    

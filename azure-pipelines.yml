@@ -46,4 +46,4 @@ stages:
         action: 'deploy'
         kubernetesServiceConnection: 'aks-connection'
         namespace: 'default'
-        manifests: '$(build.artifactstagingdirectory)/aks-manifest.yaml'
+        manifests: '$(build.artifactstagingdirectory)/aks-manifest.yml'

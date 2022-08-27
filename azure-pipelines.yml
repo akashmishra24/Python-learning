@@ -37,9 +37,13 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+    - task: CopyFiles@2
+      inputs:
+        Contents: '**'
+        TargetFolder: '$(build.artifactstagingdirectory)'
     - task: KubernetesManifest@0
       inputs:
         action: 'deploy'
         kubernetesServiceConnection: 'aks-connection'
         namespace: 'default'
-        manifests: './aks-manifest.yaml'
+        manifests: '$(build.artifactstagingdirectory)/aks-manifest.yaml'

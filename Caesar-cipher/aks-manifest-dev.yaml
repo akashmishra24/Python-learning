@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caesar-cipher-app-dev
+  namespace: dev
+  labels:
+    app: caesar-cipher-app-dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: caesar-cipher-app-dev
+  template:
+    metadata:
+      labels:
+        app: caesar-cipher-app-dev
+    spec:
+      containers:
+      - name: caesar-cipher-app-dev
+        image: myacr240891.azurecr.io/akashmishrapythonlearning:1
+        command: ["/bin/sh"]
+        args: ["-c", "while true; do echo Done Deploying Caeser-Cipher app; sleep 3600;done"]
+          # This will put your container to sleep after deployment and every hour it will log the message.
+        ports:
+          - containerPort: 3000
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: caeser-cipher-app-service-dev
+  namespace: dev
+spec:
+  type: NodePort
+  ports:
+    - port: 3050
+      targetPort: 3000
+      nodePort: 31515
+  selector:
+    app: caesar-cipher-app-dev
